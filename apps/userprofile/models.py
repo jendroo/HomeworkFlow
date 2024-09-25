@@ -14,7 +14,10 @@ roles = {
 class Teacher(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
     main_class_id = models.IntegerField()
-    role = models.CharField(choices=roles, max_length=10)  
+    role = models.CharField(choices=roles, max_length=10) 
+
+    def __str__(self):
+        return f'{self.user}' 
 
 class Parent(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
