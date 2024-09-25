@@ -12,9 +12,14 @@ DEFAULT_APP = [
 ]
 CREATED_APP = [
     "apps.core.apps.CoreConfig",
+    "apps.userprofile.apps.UserConfig",
+    "apps.classroom.apps.ClassroomConfig",
+    "apps.homeworkflow.apps.HomeworkflowConfig",
 ]  # custom apps goe here
 
-THIRD_PARTY_APP = []  # third party apps goe here
+THIRD_PARTY_APP = [
+    'rest_framework',    
+]
 
 INSTALLED_APPS = [*DEFAULT_APP, *CREATED_APP, *THIRD_PARTY_APP]
 
