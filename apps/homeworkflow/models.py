@@ -1,6 +1,4 @@
 from django.db import models
-from apps.classroom.models import ClassEnvironment, Lesson, Notification
-from apps.userprofile.models import HomeworkflowUser, Student, Teacher, Parent
 
 absent_types = {
     "late":"late",
@@ -16,12 +14,12 @@ behaviour = {
 
 class Attendance(models.Model):
     date = models.DateField()
-    student_id = models.ForeignKey(Student)
-    type = models.CharField(choices=absent_types)
-    lesson_id = models.ForeignKey(Lesson)
+    student_id = models.ForeignKey('userprofile.Student', on_delete=models.CASCADE)
+    type = models.CharField(choices=absent_types, max_length=10)
+    lesson_id = models.ForeignKey('classroom.Lesson', on_delete=models.CASCADE)
 
 class Homework(models.Model):
-    lesson_id = models.ForeignKey(Lesson)
+    lesson_id = models.ForeignKey('classroom.Lesson', on_delete=models.CASCADE)
     due_date = models.DateField()
     description = models.TextField()
     # Constraint: due date in future
@@ -33,17 +31,17 @@ class Homework(models.Model):
 
 
 class Homework_Uncompleted(models.Model):
-    homework_id = models.ForeignKey(Homework)
-    student_id = models.ForeignKey(Student)
+    homework_id = models.ForeignKey('homeworkflow.Homework', on_delete=models.CASCADE)
+    student_id = models.ForeignKey('userprofile.Student', on_delete=models.CASCADE)
 
 class Weekly_Feedback(models.Model):
-    student_id = models.ForeignKey(Student)
-    teacher_id = models.ForeignKey(Teacher)
-    homework_completion = models.ForeignKey(Homework_Uncompleted) #get average by student id
+    student_id = models.ForeignKey('userprofile.Student', on_delete=models.CASCADE)
+    teacher_id = models.ForeignKey('userprofile.Teacher', on_delete=models.PROTECT)
+    homework_completion = models.ForeignKey('homeworkflow.Homework_Uncompleted', on_delete=models.PROTECT) #get average by student id
     #sum(student_id) of homework_uncompleted
-    attendance_rate = models.ForeignKey(Attendance)  #get average by student id
+    attendance_rate = models.ForeignKey('homeworkflow.Attendance', on_delete=models.PROTECT)  #get average by student id
     date_created = models.DateField(auto_now_add=True)
     written_feedback = models.TextField()
-    social_behaviour = models.CharField(choices=behaviour)
-    work_ethics = models.CharField(choices=behaviour)
+    social_behaviour = models.CharField(choices=behaviour, max_length=10)
+    work_ethics = models.CharField(choices=behaviour, max_length=10)
     parent_checked = models.BooleanField(default=False)

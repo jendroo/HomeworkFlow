@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from apps.classroom.models import ClassEnvironment
+
 
 roles = {
     "TEACHER": "Teacher",
@@ -8,18 +8,20 @@ roles = {
     "STUDENT": "Student",   
 }
 
-class HomeworkflowUser(AbstractUser):
-    role = models.CharField(choices=roles, max_length=10)
+# class HomeworkflowUser(AbstractUser):
+#     role = models.CharField(choices=roles, max_length=10)
 
 class Teacher(models.Model):
-    user = models.OneToOneField(HomeworkflowUser, on_delete=models.CASCADE)
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
     main_class_id = models.IntegerField()
-    
+    role = models.CharField(choices=roles, max_length=10)  
 
 class Parent(models.Model):
-    user = models.OneToOneField(HomeworkflowUser, on_delete=models.CASCADE)
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    role = models.CharField(choices=roles, max_length=10)
 
 class Student(models.Model):
-    user = models.OneToOneField(HomeworkflowUser, on_delete=models.CASCADE)
-    class_id = models.ForeignKey(ClassEnvironment, on_delete=models.PROTECT)
-    parent_id = models.ForeignKey(Parent)
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    class_id = models.ForeignKey('classroom.ClassEnvironment', on_delete=models.PROTECT)
+    parent_id = models.ForeignKey('userprofile.Parent', on_delete=models.SET_NULL, null=True)
+    role = models.CharField(choices=roles, max_length=10)
