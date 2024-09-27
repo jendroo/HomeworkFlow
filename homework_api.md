@@ -176,20 +176,7 @@ Request Parameters:
 - `api/v1/user/teacher/class/class_id`
     - `GET`: view class by its id 
     
-```json
-    
-       [
-  {
-    "class_id": 1,
-    "teacher": {
-      "id": 1,
-      "first_name": "John",
-      "last_name": "Smith"
-    },
-    "class_name": "7a"
-  }
-]
-```
+
 
 - Response Body:
     - Status Code: `200 OK`
@@ -204,7 +191,7 @@ Request Parameters:
         "last_name": "Smith"
         },
         "class_name": "7a"
-     }
+     },
 ]
 ```
 
