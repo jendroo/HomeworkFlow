@@ -169,7 +169,19 @@ Can we assume "lessons" are already put into the system?
 - homework & attendance fields in weekly report
 
 
+- Probably have to change:
+    - User models
+        Right now: Have to create user and then student/teacher/parent individually
+        Ideal: Create user, choose student/teacher/parent
+        Question: Do we create students first or parents?
+            - Cause right now we need to create parents first, which is probably not ideal.
 
+    - Weekly_Feedback
+        - Should homework_completion and attendance_rate just be FlowFields instead of ForeignKey?
+        - Do you need a relation at all, if you fetch the value in the view?
+
+    - role field neccessary?
+    - student
 
 
 
