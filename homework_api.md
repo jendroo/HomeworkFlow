@@ -259,8 +259,8 @@ Request Parameters:
 {
 "class_id": 2,
 "subject_name": "Music",
-"start_time": "2024-09-19T08:00:00Z",
-"end_time": "2024-09-19T08:45:00Z",
+"start_time": "08:00:00",
+"end_time": "08:45:00",
 "day": "Monday"
 }
 
@@ -295,8 +295,8 @@ Seperate for parent/teacher/student
       "id": 2,
     },
     "subject_name": "Music",
-    "start_time": "2024-09-19T08:00:00Z",
-  "end_time": "2024-09-19T08:45:00Z",
+    "start_time": "08:00:00",
+  "end_time": "08:45:00",
   "day": "Monday"
   },
   {
@@ -306,8 +306,8 @@ Seperate for parent/teacher/student
       "id": 2,
     },
     "subject_name": "Music",
-    "start_time": "2024-09-19T08:00:00Z",
-  "end_time": "2024-09-19T08:45:00Z",
+    "start_time": "08:00:00",
+  "end_time": "08:45:00",
   "day": "Tuesday"
   },
   {
@@ -317,8 +317,8 @@ Seperate for parent/teacher/student
       "id": 2,
     },
     "subject_name": "Music",
-    "start_time": "2024-09-19T08:00:00Z",
-  "end_time": "2024-09-19T08:45:00Z",
+    "start_time": "08:00:00",
+  "end_time": "08:45:00",
   "day": "Wednesday"
   },
 ]
@@ -342,8 +342,8 @@ Seperate for parent/teacher/student
       "last_name": "Smith"
     },
     "subject_name": "Music",
-    "start_time": "2024-09-19T08:00:00Z",
-  "end_time": "2024-09-19T08:45:00Z",
+    "start_time": "208:00:00",
+  "end_time": "08:45:00Z",
   "day": "Monday"
   },
     {
@@ -355,8 +355,8 @@ Seperate for parent/teacher/student
       "last_name": "Mustermann"
     },
     "subject_name": "Maths",
-    "start_time": "2024-09-19T08:45:00Z",
-  "end_time": "2024-09-19T09:30:00Z",
+    "start_time": "08:45:00",
+  "end_time": "09:30:00",
   "day": "Monday"
   },
    {
@@ -368,8 +368,8 @@ Seperate for parent/teacher/student
       "last_name": "Mustermann"
     },
     "subject_name": "Maths",
-    "start_time": "2024-09-19T08:45:00Z",
-  "end_time": "2024-09-19T09:30:00Z",
+    "start_time": "08:45:00",
+  "end_time": "09:30:00",
   "day": "Tuesday"
   },
 ]
@@ -393,8 +393,8 @@ Seperate for parent/teacher/student
       "last_name": "Smith"
     },
     "subject_name": "Music",
-    "start_time": "2024-09-19T08:00:00Z",
-  "end_time": "2024-09-19T08:45:00Z",
+    "start_time": "08:00:00",
+  "end_time": "08:45:00",
   "day": "Monday"
   },
     {
@@ -406,8 +406,8 @@ Seperate for parent/teacher/student
       "last_name": "Mustermann"
     },
     "subject_name": "Maths",
-    "start_time": "2024-09-19T08:45:00Z",
-  "end_time": "2024-09-19T09:30:00Z",
+    "start_time": "08:45:00",
+  "end_time": "09:30:00",
   "day": "Monday"
   },
    {
@@ -419,8 +419,8 @@ Seperate for parent/teacher/student
       "last_name": "Mustermann"
     },
     "subject_name": "Maths",
-    "start_time": "2024-09-19T08:45:00Z",
-  "end_time": "2024-09-19T09:30:00Z",
+    "start_time": "08:45:00",
+  "end_time": "09:30:00",
   "day": "Tuesday"
   },
 ]
@@ -435,9 +435,9 @@ Seperate for parent/teacher/student
 
 ```json
 {
-  
-  "start_time": "2024-09-19T08:00:00Z",
-  "end_time": "2024-09-19T08:45:00Z",
+  "lesson_id":1,
+  "start_time": "08:00:00",
+  "end_time": "08:45:00",
   "day": "Monday",
 }
 ```
@@ -449,8 +449,8 @@ Seperate for parent/teacher/student
   "lesson_id": 1,
   "class_id": 1,
   "subject_name": "Physics",
-  "start_time": "2024-09-19T08:00:00Z",
-  "end_time": "2024-09-19T08:45:00Z",
+  "start_time": "08:00:00",
+  "end_time": "08:45:00",
   "day": "Monday",
   "message": "Lesson updated successfully"
 }
@@ -458,8 +458,8 @@ Seperate for parent/teacher/student
 4. Delete Lesson
 - Endpoint: `api/v1/user/teacher/class/lesson/lesson_id/`
 - `DELETE`: Delete a Class
- - Response Body: 
-  - Status Code: `204 No Content`
+ - Request Body: 
+  -
    ```json
         {
             "lesson_id":1
@@ -495,7 +495,7 @@ Seperate for parent/teacher/student
   "class_id": 1,
   "name": "Test Notification",
   "description": "This is a test notification.",
-  "date": "2024-09-10"
+  "date": "2024-09-10T18:25:43.511Z"
 }
 ```
 - Repsonse Body:
@@ -506,8 +506,7 @@ Seperate for parent/teacher/student
   "notification_id": 1,
   "class_id": 1,
   "name": "Test Notification",
-  "description": "This is a test notification.",
-  "date": "2024-09-10",
+  "date": "2024-09-10T18:25:43.511Z",
   "message": "Notification created successfully"
 }
 ```
@@ -524,7 +523,7 @@ Seperate for parent/teacher/student
     "class_id": 1,
     "name": "Test Notification",
     "description": "This is a test notification.",
-    "date": "2024-09-19"
+    "date": "2024-09-19T18:25:43.511Z"
   }
 ```
 
@@ -539,7 +538,7 @@ Seperate for parent/teacher/student
 {
   "name": "Updated Notification",
   "description": "Updated test notification.",
-  "date": "2024-09-19"
+  "date": "2024-09-19T18:25:43.511Z"
 }
 ```
 
@@ -551,7 +550,7 @@ Seperate for parent/teacher/student
   "class_id": 1,
   "name": "Updated Notification",
   "description": "Updated test notification.",
-  "date": "2024-09-19",
+  "date": "2024-09-19T18:25:43.511Z",
   "message": "Notification updated successfully"
 }
 ```
