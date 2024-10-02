@@ -150,38 +150,8 @@ Create classes based one school data, generate user profiles and maintain data t
     - date/working_week: date
     
 
-Questions:
-Can we assume "lessons" are already put into the system?
-- Are lessons created by the (school)-admin or the teacher himself?
-    - Teacher gets his timetable at beginning of the year and creates puts his own lessons
-
-- is main_class_id enough to give extra "priviliges"?
-
-- Roles: Do we need extra "roles" or can we implement it from tables
-
-- Messages in API endpoints - when are they needed ? Only for error messages?
-
-- Look for Django Sessions over Token Authorization
 
 
-- Migration Ordering (can be done all at once?)
-- on_delete
-- homework & attendance fields in weekly report
-
-
-- Probably have to change:
-    - User models
-        Right now: Have to create user and then student/teacher/parent individually
-        Ideal: Create user, choose student/teacher/parent
-        Question: Do we create students first or parents?
-            - Cause right now we need to create parents first, which is probably not ideal.
-
-    - Weekly_Feedback
-        - Should homework_completion and attendance_rate just be FlowFields instead of ForeignKey?
-        - Do you need a relation at all, if you fetch the value in the view?
-
-    - role field neccessary?
-    - student
 
 
 
@@ -244,11 +214,48 @@ Written Teacher feedback: "Very good job, especially failing the maths test" ->
 Status (for parent): Unread / Read. -> 
 
 
+Questions:
+Can we assume "lessons" are already put into the system?
+- Are lessons created by the (school)-admin or the teacher himself?
+    - Teacher gets his timetable at beginning of the year and creates puts his own lessons
+
+- is main_class_id enough to give extra "priviliges"?
+
+- Roles: Do we need extra "roles" or can we implement it from tables
+
+- Messages in API endpoints - when are they needed ? Only for error messages?
+
+- Look for Django Sessions over Token Authorization
 
 
+- Migration Ordering (can be done all at once?)
+- on_delete
+- homework & attendance fields in weekly report
 
 
+- Probably have to change:
+  
 
+    - Weekly_Feedback
+        - Should homework_completion and attendance_rate just be FlowFields instead of ForeignKey?
+        - Do you need a relation at all, if you fetch the value in the view?
+      
+    - "excused" field for homework completion?
+    - Use-cases for specific class
+
+
+# Problems:
+- Created users in admin dashboard don't have hashed passwords.
+look here: https://docs.djangoproject.com/en/5.1/topics/auth/customizing/#a-full-example
+- What we want:
+    - First Name
+    - Last Name
+    - e-Mail
+    - no password -> get's generated
+
+    - send credentials via email (or letter?)
+    - offer functionality to change password
+    - endpoint to create multiple users -> good way to populate
 
 
 
