@@ -14,8 +14,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
+from apps.homeworkflow.views import HomeworkApiView
+
 from apps.classroom.views import (
     ClassEnvironmentDetailAPIView,
     LessonAPIView,
@@ -38,4 +41,5 @@ urlpatterns = [
     # Notification views
     path('api/v1/notification/', NotificationAPIView.as_view(), name='notification-list'), # for GET, POST
     path('api/v1/notification/<int:notification_id>/', NotificationDetailAPIView.as_view(), name='notification-detail'),# for GET (specific), PUT, DELETE
+    path("homework/", HomeworkApiView.as_view())
 ]
