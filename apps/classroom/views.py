@@ -56,18 +56,52 @@ class ClassEnvironmentDetailAPIView(APIView):
 
 
 class LessonAPIView(APIView):
-
+    # queryset = Lesson.objects.all()
+    # serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated]
     
-    # GET: Retrieve a specific lesson by its ID
-    def get(self, request, lesson_id, *args, **kwargs):
-        try:
-            lesson = get_object_or_404(Lesson, id=lesson_id)
-        except Lesson.DoesNotExist:
-            return Response({"error": "Lesson not found."}, status=status.HTTP_404_NOT_FOUND)
+    
+    # def get_queryset(self):
+    #     return self.queryset
+    
+    # def get_object(self):
+    #     lesson_id = self.kwargs['pk']
+    #     return self.get_queryset().filter(id=lesson_id)
+    
+    # def get(self, request, *args, **kwargs):
+    #     try:
+    #         instance = self.get_object()
+    #     except Lesson.DoesNotExist:
+    #         return Response({"error": "Lesson not found."}, status=status.HTTP_404_NOT_FOUND)
+    #     serializer = self.get_serializer(instance)
+    #     return Response(serializer.data)
+    
+    # def list(self, request, *args, **kwargs):
+    #     queryset = self.get_queryset()
+    #     serializer = self.get_serializer(queryset, many=True)
+    #     return Response(serializer.data)
 
-        serializer = LessonSerializer(lesson)
+        # lesson = Lesson.objects.all()
+        # serializer = LessonSerializer(lesson, many = True)
+    
+        # return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # GET: Retrieve a specific lesson by its ID
+
+    def get(self, request, *args, **kwargs):
+        homework = Lesson.objects.all()
+        serializer = LessonSerializer(homework, many = True)
+    
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    # def get(self, request, lesson_id, *args, **kwargs):
+    #     try:
+    #         lesson = get_object_or_404(Lesson, id=lesson_id)
+    #     except Lesson.DoesNotExist:
+    #         return Response({"error": "Lesson not found."}, status=status.HTTP_404_NOT_FOUND)
+
+    #     serializer = LessonSerializer(lesson)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
 
     # POST: Create a new lesson
 
