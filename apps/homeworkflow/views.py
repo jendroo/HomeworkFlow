@@ -19,16 +19,26 @@ class HomeworkApiView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request, *args, **kwargs):
+        role = request.user.role
+
+        
         data = {
             "lesson_id": request.data.get("lesson_id"),
             "due_date": request.data.get("due_date"),
             "description": request.data.get("description")
         }
-
         serializer = HomeworkSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if role == "TEACHER":
+            
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        if role == "STUDENT" or "PARENT":
+            return Response({'error':'Only Teachers allowed',
+                            'detail':'Only teachers can post homework'},
+                            status = status.HTTP_401_UNAUTHORIZED)
+
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -91,10 +101,16 @@ class WeeklyFeedbackApiView(APIView):
         data = {
             "parent_checked":request.data.get("parent_checked")
         }
-        serializer = WeeklyFeedbackSerializer(feedback, data = data, partial = True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+        role = request.user.role
+        if role == "PARENT":
+            serializer = WeeklyFeedbackSerializer(feedback, data = data, partial = True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+        if role == "TEACHER" or "STUDENT":
+            return Response({'error':'Only parents allowed',
+                            'detail':'Only parents can mark their childrens reports'},
+                            status = status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
