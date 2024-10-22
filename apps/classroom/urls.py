@@ -19,6 +19,6 @@ urlpatterns = [
     # create new lesson
     path("lesson/create/", LessonAPIView.as_view(), name="lesson-create"),
     # Notification views
-    path('notification/all/', NotificationAPIView.as_view(), name='notification-list'), # for GET, POST
+    path('notification/', NotificationAPIView.as_view(), name='notification-list'), # for GET, POST
     path('notification/<int:notification_id>/', NotificationDetailAPIView.as_view(), name='notification-detail'),# for GET (specific), PUT, DELETE
 ]

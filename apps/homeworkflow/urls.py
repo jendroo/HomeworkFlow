@@ -6,5 +6,6 @@ urlpatterns = [
     path("homework/", HomeworkApiView.as_view(), name='all-homework'),
     path("absence/", AbsenceApiView.as_view(), name='post-absence'),
     path("homework/uncompleted/", HomeworkMissingView.as_view(), name="missing-homework"),
-    path("weeklyfeedback/create/", WeeklyFeedbackApiView.as_view(), name='create-weeklyfeedback')
+    path("weeklyfeedback/", WeeklyFeedbackApiView.as_view(), name='create-weeklyfeedback'),
+    path("weeklyfeedback/<int:id>/", WeeklyFeedbackApiView.as_view(), name='create-weeklyfeedback')
 ]

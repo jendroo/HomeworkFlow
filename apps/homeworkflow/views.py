@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
@@ -70,7 +70,7 @@ class HomeworkMissingView(APIView):
 class WeeklyFeedbackApiView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request, *args, **kwags):
+    def post(self, request, *args, **kwargs):
         data = {
             "student":request.data.get("student"),
             "teacher":request.data.get("teacher"),
@@ -85,3 +85,16 @@ class WeeklyFeedbackApiView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def patch(self, request, id):
+        feedback = get_object_or_404(Weekly_Feedback, id=id)
+        data = {
+            "parent_checked":request.data.get("parent_checked")
+        }
+        serializer = WeeklyFeedbackSerializer(feedback, data = data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    

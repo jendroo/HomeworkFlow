@@ -29,6 +29,7 @@ class WeeklyFeedbackSerializer(serializers.ModelSerializer):
             "written_feedback",
             "social_behaviour",
             "work_ethics",
+            "parent_checked"
                     ]
 
 
