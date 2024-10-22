@@ -8,8 +8,7 @@ roles = {
     "STUDENT": "Student",   
 }
 
-# class HomeworkflowUser(AbstractUser):
-#     role = models.CharField(choices=roles, max_length=10)
+
 
 class User(AbstractUser):
     role = models.CharField(choices=roles, max_length=10)
@@ -26,9 +25,7 @@ class Teacher(models.Model):
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
 
-    # def __str__(self):
-    #     teachername = self.request.user.get_full_name()
-    #     return f'{teachername}{self.role}' 
+  
 
 class Parent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
