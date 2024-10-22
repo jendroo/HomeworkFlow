@@ -9,7 +9,7 @@ from .models import ClassEnvironment, Notification, Lesson
 from .serializer.classenvironment import ClassEnvironmentSerializer
 from .serializer.lesson import LessonSerializer
 from .serializer.notification import NotificationSerializer
-from apps.userprofile.models import Teacher
+from apps.userprofile.models import Teacher, Student, Parent
 
 
 
@@ -89,9 +89,33 @@ class LessonAPIView(APIView):
     # GET: Retrieve a specific lesson by its ID
 
     def get(self, request, *args, **kwargs):
-        homework = Lesson.objects.all()
-        serializer = LessonSerializer(homework, many = True)
-    
+        role = request.user.role
+        id = request.user.id
+        if role == "TEACHER":
+            teacher = Teacher.objects.get(user_id = id)
+            lesson = Lesson.objects.filter(teacher_id = teacher.id)
+            serializer = LessonSerializer(lesson, many = True)
+        
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        if role == "STUDENT":
+            # add custom student/parent logic:
+            # extract class_id from student
+            student = Student.objects.get(user_id = id)
+            myclass = student.classenvironment_id
+            lesson = Lesson.objects.filter(classenvironment_id = myclass) # change from all() to homework for class id
+            serializer = LessonSerializer(lesson, many = True)
+        
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        if role == "PARENT":
+            parent = Parent.objects.get(user_id = id)
+            student = Student.objects.get(parent_id = parent.id)
+            myclass = student.classenvironment_id
+            lesson = Lesson.objects.filter(classenvironment_id = myclass) # change from all() to homework for class id
+            serializer = LessonSerializer(lesson, many = True)
+
+        serializer = LessonSerializer(lesson, many = True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     # def get(self, request, lesson_id, *args, **kwargs):
@@ -139,23 +163,28 @@ class LessonAPIView(APIView):
 
 class NotificationAPIView(APIView):
     """API View to manage notifications."""
-
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         """Handle GET request to list all notifications."""
-
+        
         notifications = Notification.objects.all()
         serializer = NotificationSerializer(notifications, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         """Handle POST request to create a new notification."""
-
-        serializer = NotificationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        role = request.user.role
+        if role == "TEACHER":
+            serializer = NotificationSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if role == "STUDENT" or "PARENT":
+            return Response({'error':'Only Teachers allowed',
+                            'detail':'Only teachers can post notification'},
+                            status = status.HTTP_401_UNAUTHORIZED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class NotificationDetailAPIView(APIView):
@@ -186,7 +215,13 @@ class NotificationDetailAPIView(APIView):
         """
         Handle DELETE request to remove a notification.
         """
-        notification = get_object_or_404(Notification, id=notification_id)
-        notification.delete()
-        return Response({"detail": "Notification deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
-
+        role = request.user.role
+        if role == "TEACHER":
+            notification = get_object_or_404(Notification, id=notification_id)
+            notification.delete()
+            return Response({"detail": "Notification deleted successfully.","name":notification.name}, status=status.HTTP_204_NO_CONTENT)
+        if role == "STUDENT" or "PARENT":
+            return Response({'error':'Only Teachers allowed',
+                            'detail':'Only teachers can delete notifactions'},
+                            status = status.HTTP_401_UNAUTHORIZED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
