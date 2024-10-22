@@ -1,4 +1,51 @@
-# django-boilerplate
+# HOMEWORK FLOW APP
+## Table of Contents
+- [Project Description](#project-description)
+- [Features](#features)
+- [Boiler-plate](#boiler-plate)
+- [Note](#note)
+- [Setup](#set-up)
+- [Using sqlite3](#using-sqlite3)
+- [Generate your Secret_Key](#generate-your-secret_key)
+- [Using PostgreSQL](#using-postgresql)
+- [Create Database](#create-database)
+- [Create new repo](#create-new-repo)
+- [Settings](#settings)
+- [Requirements](#requirements)
+- [Apps](#apps)
+- [core app](#core-app)
+- [Makefile](#makefile)
+- [Usage](#usage)
+- [License](#license)
+
+
+## Project Description
+- This is a DRF-based application designed to help schools manage homework, lessons, attendance and weekly feedbacks for teachers, students, and parents.
+
+- To sole purpose is to facilitate the student in maintaining good homework habits and staying organized and on track with their assignments.
+
+
+## Features
+- Class Management Tools for Teacher
+    - Create & Edit Lessons
+    - Assign & Track Homework
+    - Track Absence
+    - Weekly Feedback generation based on data
+
+- Information for Students
+    - Dashboard with summary
+    - Show all lessons & dates
+    - Overview of Homework
+
+- Stay on track as parent
+    - Get & check weekly feedback
+    - Same views as their child
+    - Emergency contact
+
+
+
+## Boiler-plate
+
 
 Are you tired of going through the same process whenever you want to start a new project in Django? To set up a production standard Django project can be overwhelming at times.
 
@@ -56,7 +103,7 @@ ALTER ROLE <role-name> CREATEDB;
 ALTER ROLE <role-name> LOGIN;
 ```
 
-#### Create database
+### Create database
 
 ```bash
 \c postgres <role-name>
@@ -108,7 +155,7 @@ Or use this Makefile command from the working directory
 make dev-startapp app=<app-name>
 ```
 
-#### core app
+### core app
 
 In the apps/ directory, we have an app called `core` and this should contain common stuffs that will be used in all other apps. For example, this app has a model called `CreatedModifiedAbstract` in the abstract/ folder. This is an abstract model that defines two fields; `created_at` and `modified_at`.
 
@@ -117,3 +164,13 @@ In the apps/ directory, we have an app called `core` and this should contain com
 In order to run some very long commands using shortcuts, we have a `Makefile` that contains some commands for makemigrations, migration, installation, runserver and so on.
 
 To run a command from the Makefile, we just run `make <command-name>` where `<command-name>` is a command in the Makefile
+
+## Usage
+- Teachers log in to manage lessons, assign homework and write weekly feedbacks.
+- Students view their homework and lessons.
+- Parents check weekly feedbacks.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+

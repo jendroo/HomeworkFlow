@@ -37,10 +37,8 @@ class Homework_Uncompleted(models.Model):
 class Weekly_Feedback(models.Model):
     student = models.ForeignKey('userprofile.Student', on_delete=models.CASCADE)
     teacher = models.ForeignKey('userprofile.Teacher', on_delete=models.PROTECT)
-    homework_completion = models.FloatField(null=True, blank=True) #get average by student id
-    #sum(student_id) of homework_uncompleted
-    #homework_completion = models.FloatField()
-    attendance_rate = models.FloatField(null=True, blank=True)  #get average by student id
+    lessons_late = models.IntegerField(null=True, blank=True)
+    days_missing = models.IntegerField(null=True, blank=True)
     date_created = models.DateField(auto_now_add=True)
     written_feedback = models.TextField()
     social_behaviour = models.CharField(choices=behaviour, max_length=10)
