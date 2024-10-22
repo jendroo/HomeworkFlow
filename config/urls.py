@@ -16,13 +16,9 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from apps.homeworkflow.views import HomeworkApiView
-
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/classroom/", include('apps.classroom.urls', namespace="classroom-urls")),
-    path("api/v1/userprofile/", include('apps.userprofile.urls', namespace="userprofile-urls")),
-    path("api/v1/homeworkflow/", include('apps.homeworkflow.urls', namespace="homeworkflow-urls")),
-  
+    path("homework/", HomeworkApiView.as_view())
 ]

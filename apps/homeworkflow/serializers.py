@@ -26,10 +26,13 @@ class WeeklyFeedbackSerializer(serializers.ModelSerializer):
         fields = [
             "student", 
             "teacher", 
+            "homework_completion", 
+            "attendance_rate", 
+            "date_created",
             "written_feedback",
-            "social_behaviour",
+            "social_feedback",
             "work_ethics",
             "parent_checked"
-                    ]
+            ]
 
 
